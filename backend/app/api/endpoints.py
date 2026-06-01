@@ -159,6 +159,13 @@ def save_journal(data: JournalData, db: Session = Depends(get_db)):
         db.add(user)
         db.commit()
 
+    existing = db.query(DailyJournalEntry).filter_by(user_id=data.user_id, date=data.date).first()
+    if existing:
+        existing.notes = data.notes
+        existing.completed_exercises = data.completed_exercises
+        db.commit()
+        return {"status": "success", "message": "Journal updated!"}
+
     entry = DailyJournalEntry(
         user_id=data.user_id,
         date=data.date,

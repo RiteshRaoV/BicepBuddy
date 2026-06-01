@@ -1,16 +1,57 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '../components/Button';
 import { API_URLS } from '../api/urls';
 
-export const WorkoutJournal = ({ plan, onBack }) => {
+export const WorkoutJournal = ({ plan, userData, onBack }) => {
   const [completedSets, setCompletedSets] = useState({});
   const [notes, setNotes] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [existingJournal, setExistingJournal] = useState(null);
+
+  useEffect(() => {
+    if (!plan || !userData) return;
+    const checkExisting = async () => {
+      try {
+        const res = await fetch(API_URLS.USER_JOURNALS(userData.id));
+        if (res.ok) {
+          const journals = await res.json();
+          const today = new Date();
+          const offset = today.getTimezoneOffset() * 60000;
+          const todayStr = (new Date(today.getTime() - offset)).toISOString().split('T')[0];
+          
+          const match = journals.find(j => j.date === plan.scheduled_date || j.date === todayStr);
+          if (match) {
+            setExistingJournal(match);
+            setNotes(match.notes);
+            
+            const newCompleted = {};
+            plan.exercises?.forEach((ex, exIdx) => {
+              const loggedEx = match.completed_exercises.find(le => le.name === ex.name);
+              if (loggedEx) {
+                if (loggedEx.type === 'cardio') {
+                  newCompleted[`${exIdx}-cardio`] = true;
+                } else {
+                  for (let i = 0; i < loggedEx.sets_completed; i++) {
+                    newCompleted[`${exIdx}-${i}`] = true;
+                  }
+                }
+              }
+            });
+            setCompletedSets(newCompleted);
+          }
+        }
+      } catch (e) {
+        console.error("Failed fetching journals", e);
+      }
+    };
+    checkExisting();
+  }, [plan, userData]);
 
   if (!plan) return <div>Loading plan...</div>;
 
   const toggleSet = (exerciseIndex, setIndex) => {
+    if (existingJournal) return;
     const key = `${exerciseIndex}-${setIndex}`;
     setCompletedSets(prev => ({
       ...prev,
@@ -39,12 +80,16 @@ export const WorkoutJournal = ({ plan, onBack }) => {
     });
 
     try {
+      const today = new Date();
+      const offset = today.getTimezoneOffset() * 60000;
+      const todayStr = (new Date(today.getTime() - offset)).toISOString().split('T')[0];
+
       const res = await fetch(API_URLS.SAVE_JOURNAL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user_id: 1, // Mock user ID for now
-          date: new Date().toISOString().split('T')[0], // YYYY-MM-DD
+          user_id: userData.id,
+          date: existingJournal ? existingJournal.date : (plan.scheduled_date || todayStr),
           notes: notes,
           completed_exercises: completed
         })
@@ -87,7 +132,7 @@ export const WorkoutJournal = ({ plan, onBack }) => {
               height: '150px', 
               borderRadius: '16px', 
               backgroundColor: 'var(--bg-color)', 
-              boxShadow: 'inset 4px 4px 8px rgba(163, 177, 198, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.8)',
+              boxShadow: 'var(--clay-shadow-active)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -126,12 +171,14 @@ export const WorkoutJournal = ({ plan, onBack }) => {
                       </span>
                       <Button 
                         onClick={() => toggleSet(exIndex, 'cardio')}
+                        disabled={existingJournal !== null}
                         style={{ 
                           padding: '8px 16px', 
                           fontSize: '0.9rem',
                           backgroundColor: isDone ? 'var(--accent-secondary)' : 'var(--surface-color)',
                           color: isDone ? '#fff' : 'var(--text-primary)',
-                          boxShadow: isDone ? 'inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.4)' : 'var(--clay-shadow)'
+                          boxShadow: isDone ? 'inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.4)' : 'var(--clay-shadow)',
+                          opacity: existingJournal ? 0.7 : 1
                         }}
                       >
                         {isDone ? '✓ Done' : 'Mark Done'}
@@ -150,12 +197,14 @@ export const WorkoutJournal = ({ plan, onBack }) => {
                       </span>
                       <Button 
                         onClick={() => toggleSet(exIndex, setIndex)}
+                        disabled={existingJournal !== null}
                         style={{ 
                           padding: '8px 16px', 
                           fontSize: '0.9rem',
                           backgroundColor: isDone ? 'var(--accent-secondary)' : 'var(--surface-color)',
                           color: isDone ? '#fff' : 'var(--text-primary)',
-                          boxShadow: isDone ? 'inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.4)' : 'var(--clay-shadow)'
+                          boxShadow: isDone ? 'inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.4)' : 'var(--clay-shadow)',
+                          opacity: existingJournal ? 0.7 : 1
                         }}
                       >
                         {isDone ? '✓ Done' : 'Mark Done'}
@@ -183,7 +232,8 @@ export const WorkoutJournal = ({ plan, onBack }) => {
             border: 'none',
             outline: 'none',
             background: 'var(--surface-color)',
-            boxShadow: 'inset 4px 4px 8px rgba(163, 177, 198, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.8)',
+            color: 'var(--text-primary)',
+            boxShadow: 'var(--clay-shadow-active)',
             fontFamily: 'inherit',
             resize: 'vertical'
           }}
@@ -192,7 +242,7 @@ export const WorkoutJournal = ({ plan, onBack }) => {
 
       <div style={{ marginTop: '32px' }}>
         <Button variant="primary" style={{ width: '100%', padding: '20px', fontSize: '1.2rem' }} onClick={handleComplete}>
-          {isSaving ? "Saving..." : "Complete Workout & Save Journal"}
+          {isSaving ? "Saving..." : existingJournal ? "Update Journal Notes" : "Complete Workout & Save Journal"}
         </Button>
       </div>
     </div>

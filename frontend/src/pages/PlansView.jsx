@@ -32,11 +32,10 @@ export const PlansView = ({ userData, onStartWorkout }) => {
   // Generate calendar grid (last 14 days + next 14 days)
   const today = new Date();
   const offset = today.getTimezoneOffset() * 60000;
-  const todayStr = (new Date(today - offset)).toISOString().split('T')[0];
+  const todayStr = (new Date(today.getTime() - offset)).toISOString().split('T')[0];
   const calendarDays = [];
   for (let i = -14; i <= 14; i++) {
-    const d = new Date(today);
-    d.setDate(d.getDate() + i);
+    const d = new Date(today.getTime() + i * 24 * 60 * 60 * 1000 - offset);
     calendarDays.push(d.toISOString().split('T')[0]);
   }
 
@@ -50,22 +49,33 @@ export const PlansView = ({ userData, onStartWorkout }) => {
           <div className="clay-card">No plans scheduled. Build one in the manual planner!</div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {plans.map((plan) => (
+            {plans.map((plan) => {
+              const planJournal = journals.find(j => j.date === plan.scheduled_date);
+              return (
               <div key={plan.id} className="clay-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <span style={{ fontSize: '0.8rem', color: 'var(--accent-primary)', fontWeight: 600 }}>{plan.scheduled_date}</span>
                   <h4 style={{ margin: '4px 0' }}>{plan.plan_data.workout_name}</h4>
                 </div>
-                <Button 
-                  onClick={() => onStartWorkout(plan.plan_data)} 
-                  style={{ padding: '8px' }}
-                  disabled={plan.scheduled_date > todayStr}
-                  variant={plan.scheduled_date > todayStr ? 'default' : 'primary'}
-                >
-                  {plan.scheduled_date > todayStr ? 'Upcoming' : 'Start'}
-                </Button>
+                {plan.scheduled_date > todayStr ? (
+                  <div style={{ padding: '8px', color: 'var(--accent-primary)', fontWeight: 'bold' }}>
+                    Upcoming
+                  </div>
+                ) : (
+                  <Button 
+                    onClick={() => onStartWorkout({ ...plan.plan_data, scheduled_date: plan.scheduled_date })} 
+                    style={{ 
+                      padding: '8px',
+                      backgroundColor: planJournal ? 'var(--accent-secondary)' : undefined,
+                      color: planJournal ? '#fff' : undefined
+                    }}
+                    variant={planJournal ? 'default' : 'primary'}
+                  >
+                    {planJournal ? 'View Workout' : 'Start'}
+                  </Button>
+                )}
               </div>
-            ))}
+            )})}
           </div>
         )}
       </div>

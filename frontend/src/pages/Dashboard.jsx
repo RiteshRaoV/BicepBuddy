@@ -4,16 +4,18 @@ import { API_URLS } from '../api/urls';
 
 export const Dashboard = ({ userData, onSelectPlan }) => {
   const [plans, setPlans] = useState([]);
+  const [journals, setJournals] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const res = await fetch(API_URLS.USER_PLANS(userData.id));
-        if (res.ok) {
-          const data = await res.json();
-          setPlans(data);
-        }
+        const [plansRes, journalsRes] = await Promise.all([
+          fetch(API_URLS.USER_PLANS(userData.id)),
+          fetch(API_URLS.USER_JOURNALS(userData.id))
+        ]);
+        if (plansRes.ok) setPlans(await plansRes.json());
+        if (journalsRes.ok) setJournals(await journalsRes.json());
       } catch (e) {
         console.error("Failed fetching plans", e);
       }
@@ -33,6 +35,8 @@ export const Dashboard = ({ userData, onSelectPlan }) => {
   
   const todayPlan = plans.find(p => p.scheduled_date === localISOTime);
   const upcomingPlan = plans.find(p => p.scheduled_date > localISOTime);
+  
+  const todayJournal = journals.find(j => j.date === localISOTime);
 
   const renderPlanCard = (plan, emptyMessage) => {
     if (!plan) {
@@ -43,6 +47,8 @@ export const Dashboard = ({ userData, onSelectPlan }) => {
       );
     }
 
+    const planJournal = journals.find(j => j.date === plan.scheduled_date);
+
     return (
       <div className="clay-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{ marginBottom: '16px' }}>
@@ -52,14 +58,24 @@ export const Dashboard = ({ userData, onSelectPlan }) => {
             {plan.plan_data.exercises?.length || 0} exercises • {plan.plan_data.estimated_duration_minutes || 0} mins
           </p>
         </div>
-        <Button 
-          variant={plan.scheduled_date > localISOTime ? "default" : "primary"} 
-          style={{ marginTop: 'auto', padding: '12px' }} 
-          onClick={() => onSelectPlan(plan.plan_data)}
-          disabled={plan.scheduled_date > localISOTime}
-        >
-          {plan.scheduled_date > localISOTime ? "Not Yet Available" : "Start Workout"}
-        </Button>
+        {plan.scheduled_date > localISOTime ? (
+          <div style={{ marginTop: 'auto', padding: '12px', textAlign: 'center', color: 'var(--accent-primary)', fontWeight: 'bold' }}>
+            Upcoming Workout
+          </div>
+        ) : (
+          <Button 
+            variant={planJournal ? "default" : "primary"} 
+            style={{ 
+              marginTop: 'auto', 
+              padding: '12px',
+              backgroundColor: planJournal ? 'var(--accent-secondary)' : undefined,
+              color: planJournal ? '#fff' : undefined
+            }} 
+            onClick={() => onSelectPlan({ ...plan.plan_data, scheduled_date: plan.scheduled_date })}
+          >
+            {planJournal ? "View Workout" : "Start Workout"}
+          </Button>
+        )}
       </div>
     );
   };
@@ -74,7 +90,7 @@ export const Dashboard = ({ userData, onSelectPlan }) => {
         {/* Left: Today's Plan */}
         <div style={{ flex: '1 1 250px', display: 'flex', flexDirection: 'column' }}>
           <h3 className="mb-4" style={{ textAlign: 'center', borderBottom: '2px solid var(--border-color-dark)', paddingBottom: '8px' }}>Today</h3>
-          {renderPlanCard(todayPlan, "No workout scheduled for today. Rest up or start a manual session!")}
+          {renderPlanCard(todayPlan, "No workout scheduled for today. Rest up or start a manual session!", true)}
         </div>
 
         {/* Center: All Plans */}

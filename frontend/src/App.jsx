@@ -99,7 +99,7 @@ function App() {
       case 'dashboard':
         return <Dashboard userData={userData} onSelectPlan={(plan) => { setActivePlan(plan); setAppState('journal'); }} />;
       case 'journal':
-        return <WorkoutJournal plan={activePlan} onBack={() => setAppState('dashboard')} />;
+        return <WorkoutJournal plan={activePlan} userData={userData} onBack={() => setAppState('dashboard')} />;
       case 'plans':
         return <PlansView userData={userData} onStartWorkout={(plan) => { setActivePlan(plan); setAppState('journal'); }} />;
       default:
