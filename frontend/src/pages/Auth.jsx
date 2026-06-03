@@ -68,7 +68,7 @@ export const Auth = ({ onAuthSuccess }) => {
   };
 
   return (
-    <div className="clay-card" style={{ maxWidth: '400px', width: '100%', margin: '0 auto', padding: '40px' }}>
+    <div className="premium-card" style={{ maxWidth: '400px', width: '100%', margin: '0 auto', padding: '40px' }}>
       <h2 className="text-center mb-4">{isLogin ? "Welcome Back" : "Join BicepBuddy"}</h2>
       
       {error && <div style={{ padding: '12px', background: 'var(--accent-secondary)', color: 'white', borderRadius: '8px', marginBottom: '16px', textAlign: 'center' }}>{error}</div>}
@@ -82,9 +82,9 @@ export const Auth = ({ onAuthSuccess }) => {
             onChange={(e) => setUsername(e.target.value)}
             required
             style={{ 
-              width: '100%', padding: '16px', borderRadius: '16px', border: 'none', 
-              boxShadow: 'inset 4px 4px 8px rgba(163, 177, 198, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.8)', 
-              background: 'var(--surface-color)', outline: 'none', fontSize: '1.1rem'
+              width: '100%', padding: '16px', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.1)', 
+              boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)', 
+              background: 'rgba(0,0,0,0.2)', outline: 'none', fontSize: '1.1rem', color: 'var(--text-primary)'
             }}
           />
         </div>
@@ -96,9 +96,9 @@ export const Auth = ({ onAuthSuccess }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
             style={{ 
-              width: '100%', padding: '16px', borderRadius: '16px', border: 'none', 
-              boxShadow: 'inset 4px 4px 8px rgba(163, 177, 198, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.8)', 
-              background: 'var(--surface-color)', outline: 'none', fontSize: '1.1rem'
+              width: '100%', padding: '16px', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.1)', 
+              boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)', 
+              background: 'rgba(0,0,0,0.2)', outline: 'none', fontSize: '1.1rem', color: 'var(--text-primary)'
             }}
           />
         </div>

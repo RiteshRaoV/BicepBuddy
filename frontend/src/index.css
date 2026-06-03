@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
 :root {
-  /* Soft, minimalist pastel palette */
-  --bg-color: #f0f4f8;
+  /* Ocean Theme */
+  --bg-overlay-start: rgba(255, 255, 255, 0.85);
+  --bg-overlay-end: rgba(255, 255, 255, 0.95);
+  --bg-color: #f1f5f9;
   --surface-color: #f0f4f8;
   --text-primary: #2d3748;
   --text-secondary: #718096;
@@ -14,31 +16,17 @@
   --border-color: rgba(255, 255, 255, 1);
   --border-color-dark: rgba(0, 0, 0, 0.15);
 
-  --clay-shadow: 
-    8px 8px 16px rgba(163, 177, 198, 0.4), 
-    -8px -8px 16px rgba(255, 255, 255, 0.8),
-    inset 2px 2px 5px rgba(255, 255, 255, 0.6),
-    inset -3px -3px 7px rgba(163, 177, 198, 0.2);
-    
-  --clay-shadow-hover: 
-    10px 10px 20px rgba(163, 177, 198, 0.5), 
-    -10px -10px 20px rgba(255, 255, 255, 1), 
-    inset 2px 2px 5px rgba(255, 255, 255, 0.8), 
-    inset -3px -3px 7px rgba(163, 177, 198, 0.3);
-    
-  --clay-shadow-active: 
-    inset 6px 6px 12px rgba(163, 177, 198, 0.5), 
-    inset -6px -6px 12px rgba(255, 255, 255, 0.9);
-
-  --clay-primary: 
-    8px 8px 16px rgba(141, 162, 229, 0.3), 
-    -8px -8px 16px rgba(255, 255, 255, 0.8),
-    inset 2px 2px 5px rgba(255, 255, 255, 0.4),
-    inset -3px -3px 7px rgba(100, 120, 190, 0.3);
+  --premium-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --premium-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.25);
+  --premium-shadow-active: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+  --premium-primary: 0 8px 24px rgba(2, 132, 199, 0.3);
 }
 
 [data-theme="dark"] {
-  --bg-color: #1a1e23;
+  /* Cyber Ocean Theme */
+  --bg-overlay-start: rgba(15, 23, 42, 0.85);
+  --bg-overlay-end: rgba(15, 23, 42, 0.95);
+  --bg-color: #0f172a;
   --surface-color: #22272e;
   --text-primary: #f7fafc;
   --text-secondary: #a0aec0;
@@ -50,27 +38,10 @@
   --border-color: rgba(255, 255, 255, 0.1);
   --border-color-dark: rgba(0, 0, 0, 0.3);
 
-  --clay-shadow: 
-    8px 8px 16px rgba(0, 0, 0, 0.5), 
-    -8px -8px 16px rgba(255, 255, 255, 0.03),
-    inset 2px 2px 5px rgba(255, 255, 255, 0.05),
-    inset -3px -3px 7px rgba(0, 0, 0, 0.2);
-    
-  --clay-shadow-hover: 
-    10px 10px 20px rgba(0, 0, 0, 0.7), 
-    -10px -10px 20px rgba(255, 255, 255, 0.05),
-    inset 2px 2px 5px rgba(255, 255, 255, 0.08),
-    inset -3px -3px 7px rgba(0, 0, 0, 0.3);
-    
-  --clay-shadow-active: 
-    inset 6px 6px 12px rgba(0, 0, 0, 0.6), 
-    inset -6px -6px 12px rgba(255, 255, 255, 0.05);
-
-  --clay-primary: 
-    8px 8px 16px rgba(0, 0, 0, 0.4), 
-    -8px -8px 16px rgba(255, 255, 255, 0.05),
-    inset 2px 2px 5px rgba(255, 255, 255, 0.1),
-    inset -3px -3px 7px rgba(0, 0, 0, 0.3);
+  --premium-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --premium-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.7);
+  --premium-shadow-active: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+  --premium-primary: 0 8px 24px rgba(56, 189, 248, 0.3);
 }
 
 * {
@@ -88,62 +59,84 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Base Utility Classes for Claymorphism */
-
-.clay-card {
-  background-color: var(--surface-color);
-  border-radius: 24px;
-  box-shadow: var(--clay-shadow);
-  padding: 24px;
-  border: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color-dark);
-  border-right: 1px solid var(--border-color-dark);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(var(--bg-overlay-start), var(--bg-overlay-end)), url('/background.png');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  pointer-events: none;
 }
 
-.clay-button {
-  background-color: var(--surface-color);
+/* Base Utility Classes for Premium UI */
+
+.premium-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, transform 0.2s ease, border 0.3s ease;
+}
+
+[data-theme="dark"] .premium-card {
+  background: rgba(25, 33, 48, 0.95);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.premium-button {
+  background: rgba(255, 255, 255, 0.95);
   color: var(--text-primary);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 12px 24px;
   font-family: inherit;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: var(--clay-shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease-in-out;
   border: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color-dark);
-  border-right: 1px solid var(--border-color-dark);
   outline: none;
 }
 
-.clay-button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--clay-shadow-hover);
+[data-theme="dark"] .premium-button {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.clay-button:active, .clay-button-selected {
-  box-shadow: var(--clay-shadow-active);
-  transform: translateY(2px);
-  background-color: var(--surface-color);
+.premium-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.premium-button:active, .premium-button-selected {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
   color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
 }
 
-.clay-button.primary {
-  background-color: var(--accent-primary);
+.premium-button.primary {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   color: white;
-  box-shadow: var(--clay-primary);
+  border: none;
+  box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
 }
 
-.clay-button.primary:hover {
+.premium-button.primary:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(2, 132, 199, 0.6);
 }
 
-.clay-button.primary:active {
-  box-shadow: 
-    inset 6px 6px 12px rgba(100, 120, 190, 0.5), 
-    inset -6px -6px 12px rgba(255, 255, 255, 0.3);
+.premium-button.primary:active {
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .app-layout {

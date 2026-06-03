@@ -17,19 +17,17 @@ export const Navbar = ({ userData, onNavigate, onLogout }) => {
   }, [isDark]);
 
   return (
-    <nav style={{
+    <nav className="premium-card" style={{
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
       padding: '16px 40px',
-      backgroundColor: 'var(--surface-color)',
-      boxShadow: 'var(--clay-shadow)',
       borderRadius: '0 0 24px 24px',
       marginBottom: '24px',
-      borderBottom: '1px solid var(--border-color-dark)',
-      borderRight: '1px solid var(--border-color-dark)',
-      borderLeft: '1px solid var(--border-color)',
-      transition: 'background-color 0.3s ease'
+      borderTop: 'none',
+      borderLeft: 'none',
+      borderRight: 'none',
+      zIndex: 100
     }}>
       <div 
         style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
@@ -69,7 +67,7 @@ export const Navbar = ({ userData, onNavigate, onLogout }) => {
               backgroundColor: 'var(--bg-color)',
               padding: '6px 12px',
               borderRadius: '20px',
-              boxShadow: 'var(--clay-shadow-active)'
+              boxShadow: 'var(--premium-shadow-active)'
             }} title="Your Gamification Points">
               ⭐ {userData.points || 0}
             </span>

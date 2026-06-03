@@ -1,5 +1,5 @@
 export const Button = ({ children, onClick, variant = 'default', className = '', type = 'button', style, disabled, ...props }) => {
-  const baseClass = 'clay-button';
+  const baseClass = 'premium-button';
   const variantClass = variant === 'primary' ? 'primary' : '';
   
   return (
