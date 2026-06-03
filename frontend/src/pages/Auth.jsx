@@ -68,7 +68,7 @@ export const Auth = ({ onAuthSuccess }) => {
   };
 
   return (
-    <div className="premium-card" style={{ maxWidth: '400px', width: '100%', margin: '0 auto', padding: '40px' }}>
+    <div className="app-card" style={{ maxWidth: '400px', width: '100%', margin: '0 auto', padding: '40px' }}>
       <h2 className="text-center mb-4">{isLogin ? "Welcome Back" : "Join BicepBuddy"}</h2>
       
       {error && <div style={{ padding: '12px', background: 'var(--accent-secondary)', color: 'white', borderRadius: '8px', marginBottom: '16px', textAlign: 'center' }}>{error}</div>}

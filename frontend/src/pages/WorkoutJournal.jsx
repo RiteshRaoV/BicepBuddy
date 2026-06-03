@@ -105,7 +105,7 @@ export const WorkoutJournal = ({ plan, userData, onBack }) => {
 
   if (saved) {
     return (
-      <div className="premium-card" style={{ maxWidth: '400px', width: '100%', margin: 'auto', textAlign: 'center' }}>
+      <div className="app-card" style={{ maxWidth: '400px', width: '100%', margin: 'auto', textAlign: 'center' }}>
         <h2 style={{ fontSize: '3rem', margin: '0 0 16px 0' }}>🎉</h2>
         <h2>Workout Complete!</h2>
         <p style={{ color: 'var(--text-secondary)' }}>Your session and journal have been saved.</p>
@@ -131,12 +131,12 @@ export const WorkoutJournal = ({ plan, userData, onBack }) => {
         gap: '24px' 
       }}>
         {plan.exercises?.map((exercise, exIndex) => (
-          <div key={exIndex} className="premium-card">
+          <div key={exIndex} className="app-card">
             <div style={{ 
               height: '150px', 
               borderRadius: '16px', 
               backgroundColor: 'var(--bg-color)', 
-              boxShadow: 'var(--premium-shadow-active)',
+              boxShadow: 'var(--neu-shadow-active)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -181,7 +181,7 @@ export const WorkoutJournal = ({ plan, userData, onBack }) => {
                           fontSize: '0.9rem',
                           backgroundColor: isDone ? 'var(--accent-secondary)' : 'var(--surface-color)',
                           color: isDone ? '#fff' : 'var(--text-primary)',
-                          boxShadow: isDone ? 'inset 0 2px 6px rgba(0,0,0,0.4)' : 'var(--premium-shadow)',
+                          boxShadow: isDone ? 'inset 0 2px 6px rgba(0,0,0,0.4)' : 'var(--neu-shadow)',
                           opacity: existingJournal ? 0.7 : 1
                         }}
                       >
@@ -207,7 +207,7 @@ export const WorkoutJournal = ({ plan, userData, onBack }) => {
                           fontSize: '0.9rem',
                           backgroundColor: isDone ? 'var(--accent-secondary)' : 'var(--surface-color)',
                           color: isDone ? '#fff' : 'var(--text-primary)',
-                          boxShadow: isDone ? 'inset 0 2px 6px rgba(0,0,0,0.4)' : 'var(--premium-shadow)',
+                          boxShadow: isDone ? 'inset 0 2px 6px rgba(0,0,0,0.4)' : 'var(--neu-shadow)',
                           opacity: existingJournal ? 0.7 : 1
                         }}
                       >
@@ -222,7 +222,7 @@ export const WorkoutJournal = ({ plan, userData, onBack }) => {
         ))}
       </div>
       
-      <div className="premium-card" style={{ marginTop: '32px' }}>
+      <div className="app-card" style={{ marginTop: '32px' }}>
         <h3 style={{ marginBottom: '16px' }}>Daily Journal Notes</h3>
         <textarea 
           value={notes}
@@ -237,7 +237,7 @@ export const WorkoutJournal = ({ plan, userData, onBack }) => {
             outline: 'none',
             background: 'var(--surface-color)',
             color: 'var(--text-primary)',
-            boxShadow: 'var(--premium-shadow-active)',
+            boxShadow: 'var(--neu-shadow-active)',
             fontFamily: 'inherit',
             resize: 'vertical'
           }}

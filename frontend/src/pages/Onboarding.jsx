@@ -34,7 +34,7 @@ export const Onboarding = ({ onComplete }) => {
   };
 
   return (
-    <div className="premium-card" style={{ maxWidth: '800px', width: '100%', margin: '0 auto', padding: '40px' }}>
+    <div className="app-card" style={{ maxWidth: '800px', width: '100%', margin: '0 auto', padding: '40px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
         <h3 style={{ margin: 0, color: 'var(--text-primary)' }}>Onboarding</h3>
         <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Step {step - 1} of 3</span>
@@ -48,7 +48,7 @@ export const Onboarding = ({ onComplete }) => {
               <Button 
                 key={loc.id}
                 onClick={() => handleSelect('preferred_environment', loc.id)}
-                className={formData.preferred_environment === loc.id ? 'premium-button-selected' : ''}
+                className={formData.preferred_environment === loc.id ? 'app-button-selected' : ''}
                 style={{ flex: 1, minWidth: '200px', padding: '24px', fontSize: '1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}
               >
                 {loc.assetUrl ? (
@@ -82,7 +82,7 @@ export const Onboarding = ({ onComplete }) => {
                   borderRadius: '20px', 
                   textAlign: 'center', 
                   cursor: 'pointer',
-                  boxShadow: formData.equipment.includes(eq.id) ? 'var(--premium-shadow-active)' : 'var(--premium-shadow)',
+                  boxShadow: formData.equipment.includes(eq.id) ? 'var(--neu-shadow-active)' : 'var(--neu-shadow)',
                   backgroundColor: formData.equipment.includes(eq.id) ? 'var(--surface-color)' : 'var(--surface-color)',
                   color: formData.equipment.includes(eq.id) ? 'var(--accent-primary)' : 'var(--text-primary)',
                   transition: 'all 0.2s ease',
@@ -116,7 +116,7 @@ export const Onboarding = ({ onComplete }) => {
               <Button 
                 key={goal.id}
                 onClick={() => handleSelect('goals', goal.id)}
-                className={formData.goals === goal.id ? 'premium-button-selected' : ''}
+                className={formData.goals === goal.id ? 'app-button-selected' : ''}
                 style={{ padding: '24px', fontSize: '1.2rem' }}
               >
                 {goal.name}

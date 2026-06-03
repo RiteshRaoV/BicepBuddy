@@ -1,0 +1,70 @@
+/* src/themes/clay.css */
+[data-design="clay"] {
+  --bg-overlay-start: rgba(255, 255, 255, 0.85);
+  --bg-overlay-end: rgba(255, 255, 255, 0.95);
+  --bg-color: #f1f5f9;
+  --surface-color: rgba(255, 255, 255, 0.85);
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --accent-primary: #3b82f6;
+  --accent-secondary: #f43f5e;
+  --card-border: 1px solid rgba(255, 255, 255, 0.6);
+  --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  --input-bg: rgba(255, 255, 255, 0.6);
+}
+
+[data-design="clay"][data-theme="dark"] {
+  --bg-overlay-start: rgba(15, 23, 42, 0.85);
+  --bg-overlay-end: rgba(15, 23, 42, 0.95);
+  --bg-color: #0f172a;
+  --surface-color: rgba(30, 41, 59, 0.9);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-primary: #60a5fa;
+  --accent-secondary: #fb7185;
+  --card-border: 1px solid rgba(255, 255, 255, 0.1);
+  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --input-bg: rgba(0, 0, 0, 0.2);
+}
+
+[data-design="clay"] body::before {
+  content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background-image: linear-gradient(var(--bg-overlay-start), var(--bg-overlay-end)), url('/background.png');
+  background-size: cover; background-position: center; z-index: -1; pointer-events: none;
+}
+
+[data-design="clay"] .app-card {
+  background: var(--surface-color); border-radius: 24px; padding: 24px;
+  border: var(--card-border); box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+}
+
+[data-design="clay"] .app-button {
+  background: var(--surface-color); color: var(--text-primary);
+  border: var(--card-border); border-radius: 16px; padding: 12px 24px;
+  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1rem;
+  cursor: pointer; box-shadow: var(--card-shadow);
+  transition: all 0.2s ease-in-out; outline: none;
+}
+[data-design="clay"] .app-button:hover {
+  transform: translateY(-2px); filter: brightness(1.1);
+}
+[data-design="clay"] .app-button:active, [data-design="clay"] .app-button-selected {
+  transform: translateY(1px); box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+[data-design="clay"] .app-button.primary {
+  background: var(--accent-primary); color: white; border: none;
+}
+[data-design="clay"] .app-button.primary:active {
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+[data-design="clay"] .app-input, [data-design="clay"] input[type="text"], [data-design="clay"] input[type="password"], [data-design="clay"] input[type="number"], [data-design="clay"] textarea, [data-design="clay"] select {
+  background: var(--input-bg) !important; color: var(--text-primary) !important;
+  border: var(--card-border) !important; border-radius: 16px !important; padding: 16px !important;
+  font-family: inherit !important; font-size: 1rem !important; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1) !important;
+  outline: none !important; transition: all 0.3s ease !important;
+}
+[data-design="clay"] .app-input:focus, [data-design="clay"] input[type="text"]:focus, [data-design="clay"] input[type="password"]:focus, [data-design="clay"] input[type="number"]:focus, [data-design="clay"] textarea:focus, [data-design="clay"] select:focus {
+  border-color: var(--accent-primary) !important; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}

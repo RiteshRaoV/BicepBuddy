@@ -11,13 +11,13 @@ export const Navbar = ({ userData, onNavigate, onLogout }) => {
       document.documentElement.setAttribute('data-theme', 'dark');
       localStorage.setItem('theme', 'dark');
     } else {
-      document.documentElement.removeAttribute('data-theme');
+      document.documentElement.setAttribute('data-theme', 'light');
       localStorage.setItem('theme', 'light');
     }
   }, [isDark]);
 
   return (
-    <nav className="premium-card" style={{
+    <nav className="app-card" style={{
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -67,7 +67,7 @@ export const Navbar = ({ userData, onNavigate, onLogout }) => {
               backgroundColor: 'var(--bg-color)',
               padding: '6px 12px',
               borderRadius: '20px',
-              boxShadow: 'var(--premium-shadow-active)'
+              boxShadow: 'var(--neu-shadow-active)'
             }} title="Your Gamification Points">
               ⭐ {userData.points || 0}
             </span>

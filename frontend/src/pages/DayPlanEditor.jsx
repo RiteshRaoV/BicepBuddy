@@ -130,7 +130,7 @@ export const DayPlanEditor = ({ plan, onBack, onSaved }) => {
         <div style={{ width: '80px' }}></div>
       </div>
       
-      <div className="premium-card mb-4" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="app-card mb-4" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <input 
             type="text" 

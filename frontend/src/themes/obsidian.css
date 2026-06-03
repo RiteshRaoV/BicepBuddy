@@ -1,0 +1,72 @@
+/* src/themes/obsidian.css */
+
+[data-design="obsidian"] {
+  --bg-overlay-start: rgba(255, 255, 255, 0.85);
+  --bg-overlay-end: rgba(255, 255, 255, 0.95);
+  --surface-color: rgba(255, 255, 255, 0.95);
+  --surface-hover: rgba(245, 245, 250, 0.95);
+  --text-primary: #1d1d1f;
+  --text-secondary: #86868b;
+  --accent-primary: #0066cc;
+  --accent-secondary: #ff3b30;
+  --neu-shadow-dark: rgba(0, 0, 0, 0.08);
+  --neu-shadow-light: rgba(255, 255, 255, 0.8);
+  --neu-border: 1px solid rgba(0, 0, 0, 0.05);
+  --neu-shadow: 0 10px 30px var(--neu-shadow-dark);
+  --neu-shadow-active: inset 0 2px 5px rgba(0,0,0,0.1);
+  --neu-primary: 0 4px 15px rgba(0, 102, 204, 0.3);
+}
+
+[data-design="obsidian"][data-theme="dark"] {
+  --bg-overlay-start: rgba(15, 15, 20, 0.85);
+  --bg-overlay-end: rgba(0, 0, 5, 0.95);
+  --surface-color: rgba(28, 28, 30, 0.95);
+  --surface-hover: rgba(44, 44, 46, 0.95);
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --accent-primary: #0a84ff;
+  --accent-secondary: #ff453a;
+  --neu-shadow-dark: rgba(0, 0, 0, 0.6);
+  --neu-shadow-light: rgba(255, 255, 255, 0.03);
+  --neu-border: 1px solid rgba(255,255,255,0.08);
+  --neu-shadow: 0 15px 40px var(--neu-shadow-dark);
+  --neu-shadow-active: inset 0 2px 6px rgba(0,0,0,0.5);
+  --neu-primary: 0 4px 15px rgba(10, 132, 255, 0.3);
+}
+
+[data-design="obsidian"] body::before {
+  content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background-image: linear-gradient(var(--bg-overlay-start), var(--bg-overlay-end)), url('/background.png');
+  background-size: cover; background-position: center; z-index: -1; pointer-events: none;
+}
+
+[data-design="obsidian"] .app-card {
+  background: var(--surface-color); border-radius: 20px; padding: 24px;
+  border: var(--neu-border); box-shadow: var(--neu-shadow); transition: all 0.3s ease;
+}
+
+[data-design="obsidian"] .app-button {
+  background: var(--surface-color); color: var(--text-primary); border-radius: 12px;
+  padding: 12px 24px; font-family: inherit; font-weight: 600; font-size: 1rem;
+  cursor: pointer; border: var(--neu-border); box-shadow: 0 4px 10px var(--neu-shadow-dark);
+  transition: all 0.2s ease-in-out; outline: none;
+}
+[data-design="obsidian"] .app-button:hover { background: var(--surface-hover); transform: translateY(-2px); box-shadow: 0 8px 20px var(--neu-shadow-dark); }
+[data-design="obsidian"] .app-button:active, [data-design="obsidian"] .app-button-selected {
+  transform: translateY(1px); box-shadow: var(--neu-shadow-active); color: var(--accent-primary); border-color: var(--accent-primary);
+}
+[data-design="obsidian"] .app-button.primary { background: var(--accent-primary); color: #fff; border: none; box-shadow: var(--neu-primary); }
+[data-design="obsidian"] .app-button.primary:hover { filter: brightness(1.1); transform: translateY(-2px); }
+[data-design="obsidian"] .app-button.primary:active { box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); transform: translateY(1px); }
+
+[data-design="obsidian"] .app-input, [data-design="obsidian"] input[type="text"], [data-design="obsidian"] input[type="password"], [data-design="obsidian"] input[type="number"], [data-design="obsidian"] textarea, [data-design="obsidian"] select {
+  background: rgba(0,0,0,0.03) !important; color: var(--text-primary) !important; border-radius: 12px !important;
+  padding: 16px !important; font-family: inherit !important; font-size: 1rem !important; border: var(--neu-border) !important;
+  box-shadow: inset 0 2px 4px var(--neu-shadow-dark) !important; outline: none !important; transition: all 0.3s ease !important; text-shadow: none !important;
+}
+[data-design="obsidian"][data-theme="dark"] .app-input, [data-design="obsidian"][data-theme="dark"] input[type="text"], [data-design="obsidian"][data-theme="dark"] input[type="password"], [data-design="obsidian"][data-theme="dark"] input[type="number"], [data-design="obsidian"][data-theme="dark"] textarea, [data-design="obsidian"][data-theme="dark"] select {
+  background: rgba(0,0,0,0.2) !important;
+}
+[data-design="obsidian"] .app-input:focus, [data-design="obsidian"] input[type="text"]:focus, [data-design="obsidian"] input[type="password"]:focus, [data-design="obsidian"] input[type="number"]:focus, [data-design="obsidian"] textarea:focus, [data-design="obsidian"] select:focus {
+  border-color: var(--accent-primary) !important; box-shadow: inset 0 2px 4px var(--neu-shadow-dark), 0 0 0 2px rgba(10, 132, 255, 0.2) !important;
+}

@@ -41,7 +41,7 @@ export const Dashboard = ({ userData, onSelectPlan, onEditPlan }) => {
   const renderPlanCard = (plan, emptyMessage, isToday = false) => {
     if (!plan) {
       return (
-        <div className="premium-card" style={{ textAlign: 'center', padding: '32px 16px', color: 'var(--text-secondary)' }}>
+        <div className="app-card" style={{ textAlign: 'center', padding: '32px 16px', color: 'var(--text-secondary)' }}>
           {emptyMessage}
         </div>
       );
@@ -50,7 +50,7 @@ export const Dashboard = ({ userData, onSelectPlan, onEditPlan }) => {
     const planJournal = journals.find(j => j.date === plan.scheduled_date);
 
     return (
-      <div className="premium-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <div className="app-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{ marginBottom: '16px' }}>
           <span style={{ fontSize: '0.9rem', color: 'var(--accent-primary)', fontWeight: 600 }}>{plan.scheduled_date || 'Anytime'}</span>
           <h3 style={{ marginTop: '4px', marginBottom: '8px' }}>{plan.plan_data.workout_name}</h3>
@@ -96,7 +96,7 @@ export const Dashboard = ({ userData, onSelectPlan, onEditPlan }) => {
       <p className="text-center mb-4" style={{ color: 'var(--text-secondary)' }}>Welcome back, {userData.username}</p>
 
       {/* Trophy Room Section */}
-      <div className="premium-card mb-4" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div className="app-card mb-4" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <h3 className="mb-3">🏆 Trophy Room</h3>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '16px' }}>
           You have <strong style={{ color: 'var(--accent-secondary)' }}>{userData.points || 0}</strong> points!
@@ -112,7 +112,7 @@ export const Dashboard = ({ userData, onSelectPlan, onEditPlan }) => {
                   padding: '12px 24px',
                   borderRadius: '24px',
                   backgroundColor: 'var(--surface-color)',
-                  boxShadow: 'var(--premium-shadow-active)',
+                  boxShadow: 'var(--neu-shadow-active)',
                   fontWeight: 600,
                   fontSize: '1.1rem',
                   color: 'var(--text-primary)',
@@ -148,7 +148,7 @@ export const Dashboard = ({ userData, onSelectPlan, onEditPlan }) => {
             padding: '8px'
           }}>
             {plans.length === 0 ? (
-              <div className="premium-card" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
+              <div className="app-card" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
                 <p>You don't have any upcoming workouts.</p>
               </div>
             ) : (

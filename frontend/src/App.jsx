@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { ACTIVE_DESIGN, ACTIVE_COLOR_SCHEME } from './themeConfig'
 import './index.css'
 import { LandingPage } from './pages/LandingPage'
 import { Auth } from './pages/Auth'
@@ -17,6 +18,12 @@ function App() {
   const [activePlan, setActivePlan] = useState(null)
 
   useEffect(() => {
+    document.documentElement.setAttribute('data-design', ACTIVE_DESIGN);
+    if (ACTIVE_COLOR_SCHEME !== 'default') {
+      document.documentElement.setAttribute('data-color-scheme', ACTIVE_COLOR_SCHEME);
+    } else {
+      document.documentElement.removeAttribute('data-color-scheme');
+    }
     const token = localStorage.getItem('token');
     if (token) {
       fetchUser(token);

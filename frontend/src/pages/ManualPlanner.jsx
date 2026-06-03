@@ -172,7 +172,7 @@ export const ManualPlanner = ({ userData, onPlansCreated }) => {
       <h2 className="text-center mb-4">Multi-Week Program Builder</h2>
       
       {/* Date Range Selection */}
-      <div className="premium-card mb-4" style={{ display: 'flex', gap: '24px' }}>
+      <div className="app-card mb-4" style={{ display: 'flex', gap: '24px' }}>
         <div style={{ flex: 1 }}>
           <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Start Date</label>
           <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)}
@@ -223,7 +223,7 @@ export const ManualPlanner = ({ userData, onPlansCreated }) => {
                 fontWeight: isSelected ? 800 : 600,
                 backgroundColor: isSelected ? 'var(--accent-primary)' : 'var(--surface-color)',
                 color: isSelected ? 'white' : 'var(--text-primary)',
-                boxShadow: isSelected ? 'var(--premium-primary)' : 'var(--premium-shadow)',
+                boxShadow: isSelected ? 'var(--neu-primary)' : 'var(--neu-shadow)',
                 border: hasWorkout && !isSelected ? '2px solid var(--accent-secondary)' : 'none',
                 transition: 'all 0.2s ease'
               }}
@@ -238,7 +238,7 @@ export const ManualPlanner = ({ userData, onPlansCreated }) => {
       </div>
 
       {/* Day Builder */}
-      <div className="premium-card mb-4" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="app-card mb-4" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <input 
             type="text" 

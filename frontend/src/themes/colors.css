@@ -1,0 +1,49 @@
+/* src/themes/colors.css */
+
+/* Apple (Blue/Red) */
+[data-color-scheme="apple"] {
+  --accent-primary: #0066cc;
+  --accent-secondary: #ff3b30;
+  --lcd-text: #0066cc;
+}
+[data-color-scheme="apple"][data-theme="dark"] {
+  --accent-primary: #0a84ff;
+  --accent-secondary: #ff453a;
+  --lcd-text: #0a84ff;
+}
+
+/* Cyberpunk (Neon Cyan/Pink) */
+[data-color-scheme="cyberpunk"] {
+  --accent-primary: #00ffcc;
+  --accent-secondary: #ff00ff;
+  --lcd-text: #00ffcc;
+}
+[data-color-scheme="cyberpunk"][data-theme="dark"] {
+  --accent-primary: #00ffcc;
+  --accent-secondary: #ff00ff;
+  --lcd-text: #00ffcc;
+}
+
+/* Stealth (Emerald/Amber) */
+[data-color-scheme="stealth"] {
+  --accent-primary: #10b981; 
+  --accent-secondary: #f59e0b; 
+  --lcd-text: #10b981;
+}
+[data-color-scheme="stealth"][data-theme="dark"] {
+  --accent-primary: #34d399;
+  --accent-secondary: #fbbf24;
+  --lcd-text: #34d399;
+}
+
+/* Midnight (Purple/Gold) */
+[data-color-scheme="midnight"] {
+  --accent-primary: #8b5cf6; 
+  --accent-secondary: #f59e0b; 
+  --lcd-text: #8b5cf6;
+}
+[data-color-scheme="midnight"][data-theme="dark"] {
+  --accent-primary: #a78bfa;
+  --accent-secondary: #fbbf24;
+  --lcd-text: #a78bfa;
+}

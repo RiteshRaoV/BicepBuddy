@@ -45,7 +45,7 @@ export const PlansView = ({ userData, onStartWorkout }) => {
       {/* Top Section: Adherence Calendar */}
       <div>
         <h2 className="mb-4 text-center">Adherence Calendar</h2>
-        <div className="premium-card" style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <div className="app-card" style={{ maxWidth: '800px', margin: '0 auto' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
             {calendarDays.map((dateStr) => {
               const hasJournal = journals.some(j => j.date === dateStr);
@@ -70,7 +70,7 @@ export const PlansView = ({ userData, onStartWorkout }) => {
                     height: '40px',
                     borderRadius: '8px',
                     backgroundColor: bgColor,
-                    boxShadow: 'var(--premium-shadow)',
+                    boxShadow: 'var(--neu-shadow)',
                     border: '1px solid var(--border-color)',
                     borderBottom: '1px solid var(--border-color-dark)',
                     borderRight: '1px solid var(--border-color-dark)',
@@ -106,7 +106,7 @@ export const PlansView = ({ userData, onStartWorkout }) => {
       <div>
         <h2 className="mb-4 text-center">Scheduled Workouts</h2>
         {plans.length === 0 ? (
-          <div className="premium-card text-center" style={{ padding: '40px' }}>No plans scheduled. Build one in the manual planner!</div>
+          <div className="app-card text-center" style={{ padding: '40px' }}>No plans scheduled. Build one in the manual planner!</div>
         ) : (
           <div style={{ 
             display: 'grid', 
@@ -116,7 +116,7 @@ export const PlansView = ({ userData, onStartWorkout }) => {
             {plans.map((plan) => {
               const planJournal = journals.find(j => j.date === plan.scheduled_date);
               return (
-              <div key={plan.id} className="premium-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <div key={plan.id} className="app-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 <div style={{ marginBottom: '16px' }}>
                   <span style={{ fontSize: '0.9rem', color: 'var(--accent-primary)', fontWeight: 600 }}>{plan.scheduled_date}</span>
                   <h3 style={{ margin: '4px 0 8px 0' }}>{plan.plan_data.workout_name}</h3>

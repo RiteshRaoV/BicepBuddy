@@ -1,0 +1,78 @@
+/* src/themes/skeuo.css */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+[data-design="skeuo"] {
+  --bg-color: #1a1a1a;
+  --surface-color: #2b2b2b;
+  --text-primary: #e0e0e0;
+  --text-secondary: #9e9e9e;
+  --accent-primary: #00ffcc;
+  --accent-secondary: #ff3366;
+  --lcd-text: #39ff14;
+  --iron-highlight: rgba(255, 255, 255, 0.1);
+  --iron-shadow: rgba(0, 0, 0, 0.8);
+  
+  --neu-shadow-active: inset 0 4px 8px rgba(0,0,0,0.8); /* polyfill for broken hardcoded refs */
+  --neu-shadow: 8px 8px 16px var(--iron-shadow);
+  --neu-primary: 0 0 10px var(--accent-primary);
+}
+[data-design="skeuo"][data-theme="light"] {
+  --bg-color: #d1d5db;
+  --surface-color: #e5e7eb;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --accent-primary: #059669;
+  --accent-secondary: #dc2626;
+  --lcd-text: #064e3b;
+  --iron-highlight: rgba(255, 255, 255, 0.8);
+  --iron-shadow: rgba(0, 0, 0, 0.3);
+}
+
+[data-design="skeuo"] body::before {
+  content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 2px, transparent 2px, transparent 4px), radial-gradient(circle at center, var(--surface-color), var(--bg-color));
+  z-index: -1; pointer-events: none;
+}
+
+[data-design="skeuo"] .app-card {
+  background: linear-gradient(135deg, var(--surface-color), var(--bg-color));
+  border-radius: 12px; padding: 24px; border: 2px solid rgba(0,0,0,0.5);
+  border-top-color: var(--iron-highlight); border-left-color: var(--iron-highlight);
+  box-shadow: 8px 8px 16px var(--iron-shadow), inset -2px -2px 4px rgba(0,0,0,0.5), inset 2px 2px 4px var(--iron-highlight);
+  position: relative;
+}
+[data-design="skeuo"] .app-card::before, [data-design="skeuo"] .app-card::after {
+  content: "⚙️"; position: absolute; font-size: 14px; opacity: 0.3; filter: grayscale(1);
+}
+[data-design="skeuo"] .app-card::before { top: 8px; left: 8px; }
+[data-design="skeuo"] .app-card::after { bottom: 8px; right: 8px; }
+
+[data-design="skeuo"] .app-button {
+  background: #222; background-image: radial-gradient(#333 15%, transparent 16%), radial-gradient(#333 15%, transparent 16%);
+  background-size: 8px 8px; background-position: 0 0, 4px 4px; color: #fff; border-radius: 8px; padding: 12px 24px;
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; border: 2px solid #000; border-top-color: #444;
+  box-shadow: 0 6px 0 #000, 0 10px 10px rgba(0,0,0,0.5); transition: all 0.1s ease; outline: none; text-transform: uppercase; letter-spacing: 1px;
+}
+[data-design="skeuo"][data-theme="light"] .app-button {
+  background: #e5e7eb; background-image: radial-gradient(#d1d5db 15%, transparent 16%), radial-gradient(#d1d5db 15%, transparent 16%);
+  color: #111; border: 2px solid #9ca3af; border-top-color: #fff; box-shadow: 0 6px 0 #9ca3af, 0 10px 10px rgba(0,0,0,0.2);
+}
+[data-design="skeuo"] .app-button:hover { filter: brightness(1.2); }
+[data-design="skeuo"] .app-button:active, [data-design="skeuo"] .app-button-selected {
+  transform: translateY(6px); box-shadow: 0 0 0 #000, inset 0 4px 8px rgba(0,0,0,0.8); border-top-color: #000;
+}
+[data-design="skeuo"] .app-button.primary {
+  background-color: #111; background-image: none; color: var(--accent-primary); text-shadow: 0 0 8px var(--accent-primary);
+  border: 2px solid var(--accent-primary); box-shadow: 0 6px 0 #005544, 0 10px 10px rgba(0,0,0,0.5);
+}
+[data-design="skeuo"] .app-button.primary:active { transform: translateY(6px); box-shadow: 0 0 0 #000, inset 0 4px 8px rgba(0,0,0,0.8); }
+
+[data-design="skeuo"] .app-input, [data-design="skeuo"] input[type="text"], [data-design="skeuo"] input[type="password"], [data-design="skeuo"] input[type="number"], [data-design="skeuo"] textarea, [data-design="skeuo"] select {
+  background-color: #0d1b11 !important; border: 4px solid #000 !important; border-bottom-color: #333 !important; border-right-color: #333 !important;
+  box-shadow: inset 4px 4px 10px rgba(0,0,0,0.9) !important; color: var(--lcd-text) !important; font-family: 'Orbitron', monospace !important;
+  padding: 12px !important; border-radius: 4px !important; text-shadow: 0 0 5px var(--lcd-text) !important; outline: none !important;
+}
+[data-design="skeuo"][data-theme="light"] .app-input, [data-design="skeuo"][data-theme="light"] input[type="text"], [data-design="skeuo"][data-theme="light"] input[type="password"], [data-design="skeuo"][data-theme="light"] input[type="number"], [data-design="skeuo"][data-theme="light"] textarea, [data-design="skeuo"][data-theme="light"] select {
+  background-color: #e6f2e8 !important; border-color: #9ca3af !important; border-bottom-color: #fff !important; border-right-color: #fff !important;
+  box-shadow: inset 4px 4px 10px rgba(0,0,0,0.1) !important;
+}

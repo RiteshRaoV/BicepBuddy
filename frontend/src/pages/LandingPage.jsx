@@ -15,7 +15,7 @@ export const LandingPage = ({ onGetStarted }) => {
       textAlign: 'center',
       padding: '40px',
       borderRadius: '24px',
-      boxShadow: 'var(--premium-shadow)',
+      boxShadow: 'var(--neu-shadow)',
       margin: '20px'
     }}>
       <h1 style={{ fontSize: '4rem', marginBottom: '16px', fontWeight: 800, textShadow: '2px 2px 10px rgba(0,0,0,0.5)' }}>
