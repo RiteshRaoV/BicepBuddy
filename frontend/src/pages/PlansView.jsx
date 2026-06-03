@@ -71,11 +71,15 @@ export const PlansView = ({ userData, onStartWorkout }) => {
                     borderRadius: '8px',
                     backgroundColor: bgColor,
                     boxShadow: 'var(--clay-shadow)',
+                    border: '1px solid var(--border-color)',
+                    borderBottom: '1px solid var(--border-color-dark)',
+                    borderRight: '1px solid var(--border-color-dark)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.8rem',
-                    color: (hasJournal || (hasPlan && isPast) || hasPlan) ? 'white' : 'var(--text-secondary)'
+                    fontSize: '0.9rem',
+                    fontWeight: 700,
+                    color: (hasJournal || (hasPlan && isPast) || hasPlan) ? 'white' : 'var(--text-primary)'
                   }}
                 >
                   {dateStr.split('-')[2]}

@@ -11,6 +11,8 @@ class User(Base):
     lifestyle = Column(String)  # e.g., sedentary, active
     preferred_environment = Column(String)  # home, gym
     goals = Column(String)  # health, strength, bulking, leaning
+    points = Column(Integer, default=0)
+    achievements = Column(JSON, default=list)
     
     equipment = relationship("UserEquipment", back_populates="user")
     workout_plans = relationship("WorkoutPlan", back_populates="user")

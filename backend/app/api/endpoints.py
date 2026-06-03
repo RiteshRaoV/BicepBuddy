@@ -57,7 +57,9 @@ def get_me(current_user: User = Depends(get_current_user)):
         "username": current_user.username,
         "lifestyle": current_user.lifestyle,
         "goals": current_user.goals,
-        "preferred_environment": current_user.preferred_environment
+        "preferred_environment": current_user.preferred_environment,
+        "points": current_user.points or 0,
+        "achievements": current_user.achievements or []
     }
 
 @router.get("/equipment")
@@ -189,8 +191,37 @@ def save_journal(data: JournalData, db: Session = Depends(get_db)):
         completed_exercises=data.completed_exercises
     )
     db.add(entry)
+    
+    # Award gamification points
+    user.points = (user.points or 0) + 10
+    
+    # Evaluate achievements
+    achievements = user.achievements or []
+    # Count existing journals plus this new one
+    journal_count = db.query(DailyJournalEntry).filter(DailyJournalEntry.user_id == data.user_id).count() + 1
+    
+    if journal_count >= 1 and '🏆 First Blood' not in achievements:
+        achievements.append('🏆 First Blood')
+    if journal_count >= 5 and '🔥 Consistent Lifter' not in achievements:
+        achievements.append('🔥 Consistent Lifter')
+    if journal_count >= 10 and '🥈 10 Workouts Milestone' not in achievements:
+        achievements.append('🥈 10 Workouts Milestone')
+    if journal_count >= 25 and '🥇 25 Workouts Mastery' not in achievements:
+        achievements.append('🥇 25 Workouts Mastery')
+    
+    if user.points >= 50 and '⭐ 50 Points Club' not in achievements:
+        achievements.append('⭐ 50 Points Club')
+    if user.points >= 100 and '💯 100 Points Club' not in achievements:
+        achievements.append('💯 100 Points Club')
+    if user.points >= 500 and '🌟 500 Points Legend' not in achievements:
+        achievements.append('🌟 500 Points Legend')
+        
+    user.achievements = achievements
+    from sqlalchemy.orm.attributes import flag_modified
+    flag_modified(user, "achievements")
+    
     db.commit()
-    return {"status": "success", "message": "Workout saved to journal!"}
+    return {"status": "success", "message": "Workout saved! +10 Points"}
 
 @router.get("/users/{user_id}/journals")
 def get_user_journals(user_id: int, db: Session = Depends(get_db)):

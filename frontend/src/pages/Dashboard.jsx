@@ -95,6 +95,39 @@ export const Dashboard = ({ userData, onSelectPlan, onEditPlan }) => {
       <h2 className="text-center mb-4">Your Dashboard</h2>
       <p className="text-center mb-4" style={{ color: 'var(--text-secondary)' }}>Welcome back, {userData.username}</p>
 
+      {/* Trophy Room Section */}
+      <div className="clay-card mb-4" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <h3 className="mb-3">🏆 Trophy Room</h3>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '16px' }}>
+          You have <strong style={{ color: 'var(--accent-secondary)' }}>{userData.points || 0}</strong> points!
+        </p>
+        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          {(userData.achievements || []).length === 0 ? (
+            <p style={{ color: 'var(--text-secondary)', fontStyle: 'italic' }}>Complete your first workout to earn a badge!</p>
+          ) : (
+            userData.achievements.map((badge, idx) => (
+              <div 
+                key={idx} 
+                style={{
+                  padding: '12px 24px',
+                  borderRadius: '24px',
+                  backgroundColor: 'var(--surface-color)',
+                  boxShadow: 'var(--clay-shadow-active)',
+                  fontWeight: 600,
+                  fontSize: '1.1rem',
+                  color: 'var(--text-primary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                {badge}
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
       <div style={{ display: 'flex', gap: '24px', alignItems: 'stretch', flexWrap: 'wrap' }}>
         
         {/* Left: Today's Plan */}

@@ -7,12 +7,12 @@
   --text-primary: #2d3748;
   --text-secondary: #718096;
   
-  --accent-primary: #8da2e5; /* soft purple/blue */
-  --accent-secondary: #a3d9d3; /* soft mint */
-  --accent-tertiary: #f2c6b4; /* soft peach */
+  --accent-primary: #5c7cfa; /* stronger purple/blue */
+  --accent-secondary: #20c997; /* stronger teal/mint */
+  --accent-tertiary: #ff8787; /* stronger peach/red */
   
-  --border-color: rgba(255, 255, 255, 0.8);
-  --border-color-dark: rgba(0, 0, 0, 0.05);
+  --border-color: rgba(255, 255, 255, 1);
+  --border-color-dark: rgba(0, 0, 0, 0.15);
 
   --clay-shadow: 
     8px 8px 16px rgba(163, 177, 198, 0.4), 

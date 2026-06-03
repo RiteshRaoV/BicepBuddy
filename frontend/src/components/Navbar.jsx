@@ -63,6 +63,16 @@ export const Navbar = ({ userData, onNavigate, onLogout }) => {
 
         {userData ? (
           <>
+            <span style={{ 
+              fontWeight: 800, 
+              color: 'var(--accent-secondary)', 
+              backgroundColor: 'var(--bg-color)',
+              padding: '6px 12px',
+              borderRadius: '20px',
+              boxShadow: 'var(--clay-shadow-active)'
+            }} title="Your Gamification Points">
+              ⭐ {userData.points || 0}
+            </span>
             <span style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>
               Hi, {userData.username}
             </span>
