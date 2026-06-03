@@ -142,6 +142,22 @@ def get_user_plans(user_id: int, db: Session = Depends(get_db)):
     plans = db.query(WorkoutPlan).filter(WorkoutPlan.user_id == user_id).order_by(WorkoutPlan.scheduled_date).all()
     return plans
 
+class UpdatePlanData(BaseModel):
+    plan_data: dict
+
+from sqlalchemy.orm.attributes import flag_modified
+
+@router.put("/plans/{plan_id}")
+def update_plan(plan_id: int, data: UpdatePlanData, db: Session = Depends(get_db)):
+    plan = db.query(WorkoutPlan).filter(WorkoutPlan.id == plan_id).first()
+    if not plan:
+        raise HTTPException(status_code=404, detail="Plan not found")
+    
+    plan.plan_data = data.plan_data
+    flag_modified(plan, "plan_data")
+    db.commit()
+    return {"status": "success", "message": "Plan updated"}
+
 from app.models.domain import DailyJournalEntry
 
 class JournalData(BaseModel):

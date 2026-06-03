@@ -115,7 +115,7 @@ export const WorkoutJournal = ({ plan, userData, onBack }) => {
   }
 
   return (
-    <div style={{ maxWidth: '600px', width: '100%', margin: '0 auto', paddingBottom: '40px' }}>
+    <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto', paddingBottom: '40px' }}>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
         <Button onClick={onBack} style={{ padding: '8px 16px', marginRight: '16px' }}>&larr; Back</Button>
         <h1 style={{ margin: 0, flex: 1, textAlign: 'center' }}>{plan.workout_name}</h1>
@@ -125,7 +125,11 @@ export const WorkoutJournal = ({ plan, userData, onBack }) => {
         Estimated: {plan.estimated_duration_minutes} mins
       </p>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
+        gap: '24px' 
+      }}>
         {plan.exercises?.map((exercise, exIndex) => (
           <div key={exIndex} className="clay-card">
             <div style={{ 

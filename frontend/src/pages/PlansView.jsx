@@ -40,51 +40,13 @@ export const PlansView = ({ userData, onStartWorkout }) => {
   }
 
   return (
-    <div style={{ maxWidth: '1000px', width: '100%', margin: '0 auto', display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
+    <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '32px' }}>
       
-      {/* Left Column: List of Plans */}
-      <div style={{ flex: '1 1 300px' }}>
-        <h2 className="mb-4">Scheduled Workouts</h2>
-        {plans.length === 0 ? (
-          <div className="clay-card">No plans scheduled. Build one in the manual planner!</div>
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {plans.map((plan) => {
-              const planJournal = journals.find(j => j.date === plan.scheduled_date);
-              return (
-              <div key={plan.id} className="clay-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--accent-primary)', fontWeight: 600 }}>{plan.scheduled_date}</span>
-                  <h4 style={{ margin: '4px 0' }}>{plan.plan_data.workout_name}</h4>
-                </div>
-                {plan.scheduled_date > todayStr ? (
-                  <div style={{ padding: '8px', color: 'var(--accent-primary)', fontWeight: 'bold' }}>
-                    Upcoming
-                  </div>
-                ) : (
-                  <Button 
-                    onClick={() => onStartWorkout({ ...plan.plan_data, scheduled_date: plan.scheduled_date })} 
-                    style={{ 
-                      padding: '8px',
-                      backgroundColor: planJournal ? 'var(--accent-secondary)' : undefined,
-                      color: planJournal ? '#fff' : undefined
-                    }}
-                    variant={planJournal ? 'default' : 'primary'}
-                  >
-                    {planJournal ? 'View Workout' : 'Start'}
-                  </Button>
-                )}
-              </div>
-            )})}
-          </div>
-        )}
-      </div>
-
-      {/* Right Column: Adherence Calendar */}
-      <div style={{ flex: '2 1 400px' }}>
-        <h2 className="mb-4">Adherence Calendar</h2>
-        <div className="clay-card">
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+      {/* Top Section: Adherence Calendar */}
+      <div>
+        <h2 className="mb-4 text-center">Adherence Calendar</h2>
+        <div className="clay-card" style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
             {calendarDays.map((dateStr) => {
               const hasJournal = journals.some(j => j.date === dateStr);
               const hasPlan = plans.some(p => p.scheduled_date === dateStr);
@@ -104,15 +66,15 @@ export const PlansView = ({ userData, onStartWorkout }) => {
                   key={dateStr}
                   title={dateStr}
                   style={{
-                    width: '32px',
-                    height: '32px',
+                    width: '40px',
+                    height: '40px',
                     borderRadius: '8px',
                     backgroundColor: bgColor,
                     boxShadow: 'var(--clay-shadow)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.7rem',
+                    fontSize: '0.8rem',
                     color: (hasJournal || (hasPlan && isPast) || hasPlan) ? 'white' : 'var(--text-secondary)'
                   }}
                 >
@@ -122,7 +84,7 @@ export const PlansView = ({ userData, onStartWorkout }) => {
             })}
           </div>
           
-          <div style={{ display: 'flex', gap: '16px', marginTop: '24px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+          <div style={{ display: 'flex', gap: '16px', marginTop: '24px', justifyContent: 'center', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: 'var(--accent-secondary)' }}></div> Done
             </div>
@@ -134,6 +96,52 @@ export const PlansView = ({ userData, onStartWorkout }) => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Bottom Section: List of Plans */}
+      <div>
+        <h2 className="mb-4 text-center">Scheduled Workouts</h2>
+        {plans.length === 0 ? (
+          <div className="clay-card text-center" style={{ padding: '40px' }}>No plans scheduled. Build one in the manual planner!</div>
+        ) : (
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
+            gap: '24px' 
+          }}>
+            {plans.map((plan) => {
+              const planJournal = journals.find(j => j.date === plan.scheduled_date);
+              return (
+              <div key={plan.id} className="clay-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <div style={{ marginBottom: '16px' }}>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--accent-primary)', fontWeight: 600 }}>{plan.scheduled_date}</span>
+                  <h3 style={{ margin: '4px 0 8px 0' }}>{plan.plan_data.workout_name}</h3>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>
+                    {plan.plan_data.exercises?.length || 0} exercises • {plan.plan_data.estimated_duration_minutes || 0} mins
+                  </p>
+                </div>
+                {plan.scheduled_date > todayStr ? (
+                  <div style={{ marginTop: 'auto', padding: '12px', textAlign: 'center', color: 'var(--accent-primary)', fontWeight: 'bold' }}>
+                    Upcoming Workout
+                  </div>
+                ) : (
+                  <Button 
+                    onClick={() => onStartWorkout({ ...plan.plan_data, scheduled_date: plan.scheduled_date })} 
+                    style={{ 
+                      marginTop: 'auto',
+                      padding: '12px',
+                      backgroundColor: planJournal ? 'var(--accent-secondary)' : undefined,
+                      color: planJournal ? '#fff' : undefined
+                    }}
+                    variant={planJournal ? 'default' : 'primary'}
+                  >
+                    {planJournal ? 'View Workout' : 'Start Workout'}
+                  </Button>
+                )}
+              </div>
+            )})}
+          </div>
+        )}
       </div>
       
     </div>

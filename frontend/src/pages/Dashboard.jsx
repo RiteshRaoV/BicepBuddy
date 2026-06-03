@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '../components/Button';
 import { API_URLS } from '../api/urls';
 
-export const Dashboard = ({ userData, onSelectPlan }) => {
+export const Dashboard = ({ userData, onSelectPlan, onEditPlan }) => {
   const [plans, setPlans] = useState([]);
   const [journals, setJournals] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,7 +38,7 @@ export const Dashboard = ({ userData, onSelectPlan }) => {
   
   const todayJournal = journals.find(j => j.date === localISOTime);
 
-  const renderPlanCard = (plan, emptyMessage) => {
+  const renderPlanCard = (plan, emptyMessage, isToday = false) => {
     if (!plan) {
       return (
         <div className="clay-card" style={{ textAlign: 'center', padding: '32px 16px', color: 'var(--text-secondary)' }}>
@@ -63,18 +63,28 @@ export const Dashboard = ({ userData, onSelectPlan }) => {
             Upcoming Workout
           </div>
         ) : (
-          <Button 
-            variant={planJournal ? "default" : "primary"} 
-            style={{ 
-              marginTop: 'auto', 
-              padding: '12px',
-              backgroundColor: planJournal ? 'var(--accent-secondary)' : undefined,
-              color: planJournal ? '#fff' : undefined
-            }} 
-            onClick={() => onSelectPlan({ ...plan.plan_data, scheduled_date: plan.scheduled_date })}
-          >
-            {planJournal ? "View Workout" : "Start Workout"}
-          </Button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
+            {!planJournal && isToday && (
+              <Button 
+                variant="default"
+                style={{ padding: '8px' }}
+                onClick={() => onEditPlan({ id: plan.id, ...plan.plan_data, scheduled_date: plan.scheduled_date })}
+              >
+                Edit Workout
+              </Button>
+            )}
+            <Button 
+              variant={planJournal ? "default" : "primary"} 
+              style={{ 
+                padding: '12px',
+                backgroundColor: planJournal ? 'var(--accent-secondary)' : undefined,
+                color: planJournal ? '#fff' : undefined
+              }} 
+              onClick={() => onSelectPlan({ id: plan.id, ...plan.plan_data, scheduled_date: plan.scheduled_date })}
+            >
+              {planJournal ? "View Workout" : "Start Workout"}
+            </Button>
+          </div>
         )}
       </div>
     );

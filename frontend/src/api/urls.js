@@ -7,4 +7,5 @@ export const API_URLS = {
   BULK_PLANS: '/api/plans/bulk',
   USER_JOURNALS: (userId) => `/api/users/${userId}/journals`,
   SAVE_JOURNAL: '/api/journal',
+  UPDATE_PLAN: (planId) => `/api/plans/${planId}`,
 };

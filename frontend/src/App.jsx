@@ -7,6 +7,7 @@ import { WorkoutJournal } from './pages/WorkoutJournal'
 import { ManualPlanner } from './pages/ManualPlanner'
 import { Dashboard } from './pages/Dashboard'
 import { PlansView } from './pages/PlansView'
+import { DayPlanEditor } from './pages/DayPlanEditor'
 import { Navbar } from './components/Navbar'
 import { API_URLS } from './api/urls'
 
@@ -97,7 +98,9 @@ function App() {
       case 'manual_planner':
         return <ManualPlanner userData={userData} onPlansCreated={() => setAppState('dashboard')} />;
       case 'dashboard':
-        return <Dashboard userData={userData} onSelectPlan={(plan) => { setActivePlan(plan); setAppState('journal'); }} />;
+        return <Dashboard userData={userData} onSelectPlan={(plan) => { setActivePlan(plan); setAppState('journal'); }} onEditPlan={(plan) => { setActivePlan(plan); setAppState('edit_today'); }} />;
+      case 'edit_today':
+        return <DayPlanEditor plan={activePlan} onBack={() => setAppState('dashboard')} onSaved={() => setAppState('dashboard')} />;
       case 'journal':
         return <WorkoutJournal plan={activePlan} userData={userData} onBack={() => setAppState('dashboard')} />;
       case 'plans':
