@@ -80,6 +80,12 @@ export const Navbar = ({ userData, onNavigate, onLogout }) => {
             <Button onClick={() => onNavigate('plans')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
               Calendar
             </Button>
+            <Button onClick={() => onNavigate('analytics')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
+              Analytics
+            </Button>
+            <Button onClick={() => onNavigate('library')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
+              Library
+            </Button>
             <Button onClick={() => onNavigate('manual_planner')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
               + Build Plan
             </Button>

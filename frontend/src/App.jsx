@@ -9,6 +9,8 @@ import { ManualPlanner } from './pages/ManualPlanner'
 import { Dashboard } from './pages/Dashboard'
 import { PlansView } from './pages/PlansView'
 import { DayPlanEditor } from './pages/DayPlanEditor'
+import { Analytics } from './pages/Analytics'
+import { ExerciseLibrary } from './pages/ExerciseLibrary'
 import { Navbar } from './components/Navbar'
 import { API_URLS } from './api/urls'
 
@@ -112,6 +114,10 @@ function App() {
         return <WorkoutJournal plan={activePlan} userData={userData} onBack={() => setAppState('dashboard')} />;
       case 'plans':
         return <PlansView userData={userData} onStartWorkout={(plan) => { setActivePlan(plan); setAppState('journal'); }} />;
+      case 'analytics':
+        return <Analytics userData={userData} />;
+      case 'library':
+        return <ExerciseLibrary />;
       default:
         return <div>Not Found</div>;
     }
