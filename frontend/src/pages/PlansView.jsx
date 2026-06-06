@@ -56,7 +56,7 @@ export const PlansView = ({ userData, onStartWorkout }) => {
               if (hasJournal) {
                 bgColor = 'var(--accent-secondary)'; // Greenish/Mint = Done
               } else if (hasPlan && isPast) {
-                bgColor = '#fc8181'; // Red = Missed
+                bgColor = 'var(--accent-danger)'; // Red = Missed
               } else if (hasPlan && !isPast) {
                 bgColor = 'var(--accent-primary)'; // Blue = Upcoming
               }
@@ -93,7 +93,7 @@ export const PlansView = ({ userData, onStartWorkout }) => {
               <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: 'var(--accent-secondary)' }}></div> Done
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: '#fc8181' }}></div> Missed
+              <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: 'var(--accent-danger)' }}></div> Missed
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: 'var(--accent-primary)' }}></div> Scheduled
@@ -129,7 +129,7 @@ export const PlansView = ({ userData, onStartWorkout }) => {
                     Upcoming Workout
                   </div>
                 ) : plan.scheduled_date < todayStr && !planJournal ? (
-                  <div style={{ marginTop: 'auto', padding: '12px', textAlign: 'center', color: '#fc8181', fontWeight: 'bold' }}>
+                  <div style={{ marginTop: 'auto', padding: '12px', textAlign: 'center', color: 'var(--accent-danger)', fontWeight: 'bold' }}>
                     Missed Workout
                   </div>
                 ) : (

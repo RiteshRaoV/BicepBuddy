@@ -63,7 +63,7 @@ export const Dashboard = ({ userData, onSelectPlan, onEditPlan }) => {
             Upcoming Workout
           </div>
         ) : plan.scheduled_date < localISOTime && !planJournal ? (
-          <div style={{ marginTop: 'auto', padding: '12px', textAlign: 'center', color: '#fc8181', fontWeight: 'bold' }}>
+          <div style={{ marginTop: 'auto', padding: '12px', textAlign: 'center', color: 'var(--accent-danger)', fontWeight: 'bold' }}>
             Missed Workout
           </div>
         ) : (

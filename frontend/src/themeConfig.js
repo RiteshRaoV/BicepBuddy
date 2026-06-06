@@ -9,7 +9,8 @@ export const COLOR_SCHEMES = {
   APPLE: 'apple',
   CYBERPUNK: 'cyberpunk',
   STEALTH: 'stealth',
-  MIDNIGHT: 'midnight'
+  MIDNIGHT: 'midnight',
+  MONSTER: 'monster'
 };
 
 // DEV CONFIG: Change these to swap the entire app's design system & colors!
