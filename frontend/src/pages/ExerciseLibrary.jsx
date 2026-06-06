@@ -75,7 +75,7 @@ const ExerciseModal = ({ exercise, onClose }) => {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       zIndex: 1000, padding: '20px'
     }}>
-      <div className="app-card" style={{ maxWidth: '500px', width: '100%', position: 'relative' }}>
+      <div className="app-card" style={{ maxWidth: '500px', width: '100%', position: 'relative', maxHeight: '90vh', overflowY: 'auto' }}>
         <button 
           onClick={onClose}
           style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '1.2rem' }}
