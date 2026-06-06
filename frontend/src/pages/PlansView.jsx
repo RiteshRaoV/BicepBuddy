@@ -128,6 +128,10 @@ export const PlansView = ({ userData, onStartWorkout }) => {
                   <div style={{ marginTop: 'auto', padding: '12px', textAlign: 'center', color: 'var(--accent-primary)', fontWeight: 'bold' }}>
                     Upcoming Workout
                   </div>
+                ) : plan.scheduled_date < todayStr && !planJournal ? (
+                  <div style={{ marginTop: 'auto', padding: '12px', textAlign: 'center', color: '#fc8181', fontWeight: 'bold' }}>
+                    Missed Workout
+                  </div>
                 ) : (
                   <Button 
                     onClick={() => onStartWorkout({ ...plan.plan_data, scheduled_date: plan.scheduled_date })} 
