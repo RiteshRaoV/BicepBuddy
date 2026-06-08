@@ -126,7 +126,7 @@ function App() {
   return (
     <div className="app-layout">
       {appState !== 'landing' && appState !== 'auth' && appState !== 'loading' && (
-        <Navbar userData={userData} onNavigate={setAppState} onLogout={handleLogout} />
+        <Navbar appState={appState} userData={userData} onNavigate={setAppState} onLogout={handleLogout} />
       )}
       
       {/* If it's landing or auth, we want to hide the navbar to make it clean */}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from './Button';
 
-export const Navbar = ({ userData, onNavigate, onLogout }) => {
+export const Navbar = ({ appState, userData, onNavigate, onLogout }) => {
   const [isDark, setIsDark] = useState(() => {
     return localStorage.getItem('theme') === 'dark';
   });
@@ -16,31 +16,55 @@ export const Navbar = ({ userData, onNavigate, onLogout }) => {
     }
   }, [isDark]);
 
+  const navItems = [
+    { id: 'dashboard', label: 'Dashboard' },
+    { id: 'plans', label: 'Calendar' },
+    { id: 'analytics', label: 'Analytics' },
+    { id: 'library', label: 'Library' },
+    { id: 'manual_planner', label: '+ Build Plan' },
+    { id: 'onboarding', label: 'Train with AI' }
+  ];
+
   return (
-    <nav className="app-card" style={{
-      display: 'flex',
+    <nav style={{
+      display: 'grid',
+      gridTemplateColumns: '1fr auto 1fr',
       alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '16px 40px',
-      borderRadius: '0 0 24px 24px',
-      marginBottom: '24px',
-      borderTop: 'none',
-      borderLeft: 'none',
-      borderRight: 'none',
+      padding: '16px 32px',
+      marginBottom: '0',
+      position: 'relative',
       zIndex: 100
     }}>
+      {/* Left: Logo & Brand */}
       <div 
-        style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
+        style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', justifySelf: 'start' }}
         onClick={() => onNavigate(userData ? 'dashboard' : 'landing')}
       >
-        <img src="/logo.png" alt="Logo" className="logo-img" style={{ height: '36px', width: '36px', objectFit: 'contain' }} />
-        <h1 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--text-primary)', fontWeight: 800 }}>
+        <img src="/logo.png" alt="Logo" className="logo-img" style={{ height: '32px', width: '32px', objectFit: 'contain' }} />
+        <div className="nav-divider"></div>
+        <h1 style={{ margin: 0, fontSize: '1.25rem', color: 'var(--text-primary)', fontWeight: 800, display: 'flex', alignItems: 'center' }}>
           BicepBuddy
         </h1>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-        <label className="theme-switch" title="Toggle Dark Mode">
+      {/* Center: Segmented Navigation */}
+      {userData ? (
+        <div className="nav-pill-container" style={{ justifySelf: 'center' }}>
+          {navItems.map(item => (
+            <button
+              key={item.id}
+              className={`nav-pill-item ${appState === item.id || (item.id === 'dashboard' && (appState === 'journal' || appState === 'edit_today')) ? 'active' : ''}`}
+              onClick={() => onNavigate(item.id)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      ) : <div />}
+
+      {/* Right: Actions */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', justifySelf: 'end' }}>
+        <label className="theme-switch" title="Toggle Dark Mode" style={{ transform: 'scale(0.8)', margin: '0' }}>
           <input 
             type="checkbox" 
             className="theme-switch__checkbox" 
@@ -75,35 +99,34 @@ export const Navbar = ({ userData, onNavigate, onLogout }) => {
             <span style={{ 
               fontWeight: 800, 
               color: 'var(--accent-secondary)', 
-              backgroundColor: 'var(--bg-color)',
+              backgroundColor: 'var(--surface-color)',
               padding: '6px 12px',
               borderRadius: '20px',
-              boxShadow: 'var(--neu-shadow-active)'
+              border: '1px solid var(--border-color)',
+              fontSize: '0.9rem'
             }} title="Your Gamification Points">
               ⭐ {userData.points || 0}
             </span>
-            <span style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>
-              Hi, {userData.username}
-            </span>
-            <Button onClick={() => onNavigate('dashboard')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
-              Dashboard
-            </Button>
-            <Button onClick={() => onNavigate('plans')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
-              Calendar
-            </Button>
-            <Button onClick={() => onNavigate('analytics')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
-              Analytics
-            </Button>
-            <Button onClick={() => onNavigate('library')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
-              Library
-            </Button>
-            <Button onClick={() => onNavigate('manual_planner')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
-              + Build Plan
-            </Button>
-            <Button onClick={() => onNavigate('onboarding')} style={{ padding: '8px 16px', fontSize: '0.9rem', backgroundColor: 'var(--accent-primary)', color: 'white' }}>
-              Train with AI
-            </Button>
-            <Button onClick={onLogout} style={{ padding: '8px 16px', fontSize: '0.9rem', backgroundColor: 'var(--accent-secondary)', color: 'white' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                {userData.username}
+              </span>
+              <div style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                backgroundColor: 'var(--accent-primary)',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 'bold',
+                fontSize: '1rem'
+              }}>
+                {userData.username.charAt(0).toUpperCase()}
+              </div>
+            </div>
+            <Button onClick={onLogout} variant="danger" style={{ padding: '6px 16px', fontSize: '0.85rem' }}>
               Logout
             </Button>
           </>

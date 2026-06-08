@@ -11,7 +11,7 @@
 [data-color-scheme="apple"][data-theme="dark"] {
   --accent-primary: #0a84ff;
   --accent-secondary: #ff453a;
-  --accent-danger: #ff453a;
+  --accent-danger: #ff0000;
   --lcd-text: #0a84ff;
 }
 
