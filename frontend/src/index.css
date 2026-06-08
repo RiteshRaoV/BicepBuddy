@@ -227,3 +227,8 @@ body {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+/* Logo inversion for light mode */
+[data-theme="light"] .logo-img {
+  filter: invert(1);
+}

@@ -33,7 +33,7 @@ export const Navbar = ({ userData, onNavigate, onLogout }) => {
         style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
         onClick={() => onNavigate(userData ? 'dashboard' : 'landing')}
       >
-        <div style={{ fontSize: '1.8rem' }}>💪</div>
+        <img src="/logo.png" alt="Logo" className="logo-img" style={{ height: '36px', width: '36px', objectFit: 'contain' }} />
         <h1 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--text-primary)', fontWeight: 800 }}>
           BicepBuddy
         </h1>

@@ -3,7 +3,8 @@ import { Button } from '../components/Button';
 export const LandingPage = ({ onGetStarted }) => {
   return (
     <div style={{
-      minHeight: 'calc(100vh - 80px)', // adjust for header/footer
+      flex: 1,
+      width: '100%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -15,8 +16,7 @@ export const LandingPage = ({ onGetStarted }) => {
       textAlign: 'center',
       padding: '40px',
       borderRadius: '24px',
-      boxShadow: 'var(--neu-shadow)',
-      margin: '20px'
+      boxShadow: 'var(--neu-shadow)'
     }}>
       <h1 style={{ fontSize: '4rem', marginBottom: '16px', fontWeight: 800, textShadow: '2px 2px 10px rgba(0,0,0,0.5)' }}>
         ELEVATE YOUR TRAINING

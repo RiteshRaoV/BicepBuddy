@@ -135,7 +135,7 @@ function App() {
           onClick={() => setAppState('landing')}
           style={{ padding: '24px 40px', display: 'flex', alignItems: 'center', cursor: 'pointer' }}
         >
-          <div style={{ fontSize: '1.8rem' }}>💪</div>
+          <img src="/logo.png" alt="Logo" className="logo-img" style={{ height: '36px', width: '36px', objectFit: 'contain' }} />
           <h1 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--text-primary)', fontWeight: 800 }}>
             BicepBuddy
           </h1>
